@@ -3,27 +3,21 @@ var PharmacyView = Backbone.View.extend({
     className: 'hidden-pharmacy pharmacy',
     tagName: 'tr',
     template: _.template('<td colspan="6">' +
-            '<div class="ph-data"> ' +
-                '<div class="ph-name"><%= name %></div>' +
-                '<div class="ph-address-wrapper">' +
-                    '<div class="ph-address-label">Διεύθυνση:</div>' +
-                    '<div class="ph-address"><%= location %></div>' +
-                '</div>' +
-                '<div class="ph-tel-wrapper">' +
-                    '<div class="ph-tel-label">Τηλέφωνο:</div>' +
-                    '<div class="ph-tel"><%= telephone %></div>' +
-                '</div>' +
-            '</div>' +
-            '<div class="ph-map"></div>' +
+        '<div class="ph-data"> ' +
+        '<div class="ph-name"><%= name %></div>' +
+        '<div class="ph-address-wrapper">' +
+        '<div class="ph-address-label">Διεύθυνση:</div>' +
+        '<div class="ph-address"><%= location %></div>' +
+        '</div>' +
+        '<div class="ph-tel-wrapper">' +
+        '<div class="ph-tel-label">Τηλέφωνο:</div>' +
+        '<div class="ph-tel"><%= telephone %></div>' +
+        '</div>' +
+        '</div>' +
         '</td>'),
     render: function() {
         var attrs = this.model.toJSON();
         $(this.el).html(this.template(attrs));
-//        var centerLL = new google.maps.LatLng(35.314258, 25.395584);
-//        map = new google.maps.Map(this.el.getElementsByClassName('map')[0], {
-//            center: centerLL,
-//            zoom: 15
-//        });
         return this;
     }
 });
@@ -33,14 +27,6 @@ var EfimeriaView = Backbone.View.extend({
     events: {
         'click': function() {
             $(this.el).next().toggleClass('hidden-pharmacy');
-            var mapEl = $(this.el).next().find('.ph-map')[0];
-            var latLng = new google.maps.LatLng(35.319020396631615, 25.349922073730447);
-            var request = {query: this.model.get('pharmacy').name, location: latLng, radius: '500'};
-            service.textSearch(request);
-            this.map = new google.maps.Map(mapEl, {
-                center: latLng,
-                zoom: 12
-            });
         }
     },
     template: _.template('<td><%= startTime %> - <%= endTime %></td>' +
@@ -109,7 +95,7 @@ var TabView = Backbone.View.extend({
         'click': function() {
             $('.'+this.className+'.selected').removeClass('selected');
             $(this.el).addClass('selected');
-            $('#efimeries-tables .selected').removeClass('selected');
+            $('#efimeries-tables').find('.selected').removeClass('selected');
             $(this.efimeriesView.el).addClass('selected').parent().scrollTop(0);
             if(this.changeDateTab)
                 this.changeDateTab();
@@ -189,7 +175,7 @@ var DateTabs = Tabs.extend({
             return date.getDate() + '-' + months[date.getMonth()];
         }
         function atDayStart(d) {
-            d.setTime(d.setTime(d.getTime()- d.getTime()%(1000*60*60*24)))
+            d.setTime(d.setTime(d.getTime()- d.getTime()%(1000*60*60*24)));
             return d;
         }
         if(i == 0 && e.get('hide')) {
@@ -200,8 +186,6 @@ var DateTabs = Tabs.extend({
             lastDate = atDayStart(plusDays(firstDate, 7));
             lastDate.setTime(lastDate.getTime()-1+lastDate.getTimezoneOffset()*60*1000);
         }
-        //return date.getDate()+'-'+this.months[date.getMonth()];
-//        return e.get('pharmacy').telephone;
         return dayString(firstDate) + ' - ' + dayString(lastDate) ;
     }
 });
@@ -223,7 +207,7 @@ var DateTabsView = TabsView.extend({
                 }
                 this.efimeriesTables.append(table);
             }
-        },this)
+        },this);
         return this;
     }
 });
@@ -239,96 +223,3 @@ $(window).on('load', function() {
         el.css('padding-top', (el.height() - el.children('span').height())/2)
     });
 });
-
-$('#efimeries-app').append($('<div>', {id: 'map'}));
-google.maps.event.addDomListener(window, 'load', function () {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: new google.maps.LatLng(35.319020396631615, 25.349922073730447),
-        zoom: 12
-    });
-
-    var request = {
-        location: new google.maps.LatLng(35.319020396631615, 25.349922073730447),
-        radius: '500',
-        query: 'restaurant'
-    };
-
-    var r;
-    var places = new Backbone.GoogleMaps.LocationCollection();
-    var callback = function (results, status) {
-        if (status != google.maps.places.PlacesServiceStatus.OK) {
-            i++;
-            if(i < names.length) {
-                req();
-            }
-            else {
-                var markerCollectionView = new Backbone.GoogleMaps.MarkerCollectionView({
-                    collection: places,
-                    map: map
-                });
-                markerCollectionView.render();
-            }
-            return;
-        } else {
-            r = results;
-            places.add({
-                lat: r[0].geometry.location.lat(),
-                lng: r[0].geometry.location.lng(),
-                title: currentName
-            });
-
-// To add the marker to the map, call setMap();
-        }
-        i++;
-        if(i < names.length) {
-            req();
-        }
-        else {
-            var markerCollectionView = new Backbone.GoogleMaps.MarkerCollectionView({
-                collection: places,
-                map: map
-            });
-            markerCollectionView.render();
-        }
-    };
-    service = new google.maps.places.PlacesService(map);
-    var names = efimeries.map(function(e) {
-        var p = e.get('pharmacy');
-        return [p.name, p.location];
-    });
-    names.forEach(function(s, i) {
-        names[i][1] = s[1].trim();
-    });
-    names = _.uniq(names, function(e) {
-        return e[0];
-    });
-    var i = 0;
-    var currentName;
-    req = function() {
-        currentName = names[i][0];
-        request.query = names[i][1];
-        service.textSearch(request, callback);
-    }
-    req();
-//    names.forEach(function (a) {
-//        request.query = a;
-//        service.textSearch(request, callback);
-//    });
-});
-
-//var search = $('<input>', {
-//    type: 'text',
-//    class:'search'
-//});
-//search.prependTo($('body'))
-//search.on('input', function (e) {
-//    efimeries.forEach(function(efimeria) {
-//        if(!efimeria.get('pharmacy').name.toLocaleLowerCase().contains(e.currentTarget.value.toLocaleLowerCase())) {
-//            efimeria.set('hide', true);
-//        }
-//        else {
-//            efimeria.set('hide', false)
-//        }
-//    });
-//    efimeriesView.render();
-//});
