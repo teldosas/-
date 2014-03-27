@@ -1,0 +1,89 @@
+.tab {
+    border: 1px solid;
+    border-bottom: none;
+    max-width: 160px;
+    padding: 2px;
+    height: inherit;
+    display: inline-block;
+    vertical-align: top;
+    background-color: rgba(18, 32, 103, 0.29);
+    cursor: pointer;
+    text-align: center;
+}
+.date-tab {
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 10px;
+}
+.tab span {
+    font-weight: 700;
+}
+.tab span:hover {
+    color: rgba(0, 0, 0, 0.60)
+}
+.tab:hover {
+    background-color: rgba(15, 22, 114, 0.13);
+}
+.tab.selected {
+    background-color: white;
+}
+#efimeries-tables {
+    height: 280px;
+    overflow-y: scroll;
+}
+#efimeries-tables table {
+    display: none;
+}
+#efimeries-tables .selected {
+    display: inline-table;
+}
+#efimeries-tables tr:not(.pharmacy){
+    cursor: pointer;
+}
+#district-tabs {
+    height: 90px;
+}
+.date-tabs {
+    float: left;
+    display: none;
+    margin-top: 90px;
+    width: 140px;
+}
+.date-tabs.selected {
+    display: initial;
+}
+#efimeries-app {
+    width: 897px;
+}
+.ph-data {
+    display: inline-block;
+}
+.ph-address-wrapper > div {
+    display: inline;
+    padding: 2px;
+}
+.ph-tel-wrapper > div {
+    display: inline;
+    padding: 2px;
+}
+.ph-name {
+    background-color: #9ae272;
+    color: rgba(0, 0, 0, 0.60);
+}
+.hidden-pharmacy {
+    display: none;
+}
+#map {
+    width: 787px;
+    height: 338px;
+    margin-left: 140px;
+}
+.map {
+    width: 350px;
+    height: 293px;
+}
+.ph-map {
+    width: 414px;
+    height: 249px;
+    float: right;
+}
