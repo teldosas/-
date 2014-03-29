@@ -2,7 +2,6 @@
     border: 1px solid;
     border-bottom: none;
     max-width: 160px;
-    padding: 2px;
     height: inherit;
     display: inline-block;
     vertical-align: top;
@@ -50,7 +49,7 @@
     width: 140px;
 }
 .date-tabs.selected {
-    display: initial;
+    display: block;
 }
 #efimeries-app {
     width: 897px;

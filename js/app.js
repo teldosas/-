@@ -193,18 +193,13 @@ var DateTabsView = TabsView.extend({
     id: '',
     className: 'date-tabs',
     render: function() {
-        this.collection.forEach(function(e, i) {
+        this.collection.forEach(function(e) {
             if (!e.get('efimeries').every(function(e) { return e.get('hide')})) {
                 var dTV = new DateTabView({model: e});
                 var dateTab = dTV.render().el;
                 $(this.el).append(dateTab);
 
                 var table = dTV.efimeriesView.render().el;
-
-                if (i == 0) {
-                    $(dateTab).addClass('selected');
-                    $(table).addClass('selected');
-                }
                 this.efimeriesTables.append(table);
             }
         },this);
