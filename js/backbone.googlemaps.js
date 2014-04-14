@@ -288,7 +288,8 @@
         map: this.map,
         title: this.model.title,
         animation: google.maps.Animation.DROP,
-        visible: false										// hide, until render
+        visible: false,
+        draggable: true// hide, until render
       }, this.overlayOptions));
 
       // Add default mapEvents
