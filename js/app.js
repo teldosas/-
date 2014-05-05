@@ -223,7 +223,9 @@ var DateTabs = Tabs.extend({
             return d;
         }
         if(i == 0 && e.get('hide')) {
-            date = this.efimeries.find(function(e) {return !e.get('hide')}).get('dateObject');
+            var firstNotHidden = this.efimeries.find(function(e) {return !e.get('hide')});
+            if(firstNotHidden)
+                date = firstNotHidden.get('dateObject');
         }
         if(i == 0 || date > lastDate) {
             firstDate = atDayStart(date);
