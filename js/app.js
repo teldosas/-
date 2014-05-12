@@ -23,7 +23,7 @@ var PharmacyView = Backbone.View.extend({
         '<div class="ph-map"></div>' +
         '</td>'),
     render: function() {
-        if(!this.rendered) {
+        if(!this.mapLoaded) {
             var attrs = this.model.toJSON();
             $(this.el).html(this.template(attrs));
             var mapEl = this.$el.find('.ph-map')[0];
