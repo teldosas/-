@@ -50,7 +50,7 @@ var EfimeriaView = Backbone.View.extend({
         'click': function() {
             var iteration = $(this).data('iteration') || 0;
             var phV = this.model.pharmacyView;
-            if(iteration == 0) {
+            if(iteration === 0) {
                 phV.render().$el.
                         insertAfter(this.$el);
             }
@@ -133,7 +133,7 @@ var TabView = Backbone.View.extend({
         this.changeDateTab = function () {
             $('.date-tabs.selected').removeClass('selected');
             $(this.dateTabsView.el).addClass('selected');
-        }
+        };
     },
     events: {
         'click': function() {
@@ -198,10 +198,10 @@ var TabsView = Backbone.View.extend({
             $(this.el).append(dateTabs);
 
             var table = tV.efimeriesView.render().el;
-            if (i == 0) {
+            if (i === 0) {
                 $(tab).addClass('selected');
                 $(table).addClass('selected');
-                $(dateTabs).addClass('selected')
+                $(dateTabs).addClass('selected');
             }
             this.efimeriesTables.append(table);
         }, this);
@@ -222,12 +222,14 @@ var DateTabs = Tabs.extend({
             d.setTime(d.setTime(d.getTime()- d.getTime()%(1000*60*60*24)));
             return d;
         }
-        if(i == 0 && e.get('hide')) {
-            var firstNotHidden = this.efimeries.find(function(e) {return !e.get('hide')});
+        if(i === 0 && e.get('hide')) {
+            var firstNotHidden = this.efimeries.find(function(e) {
+                return !e.get('hide');
+            });
             if(firstNotHidden)
                 date = firstNotHidden.get('dateObject');
         }
-        if(i == 0 || date > lastDate) {
+        if(i === 0 || date > lastDate) {
             firstDate = atDayStart(date);
             lastDate = atDayStart(plusDays(firstDate, 7));
             lastDate.setTime(lastDate.getTime()-1+lastDate.getTimezoneOffset()*60*1000);
@@ -240,7 +242,7 @@ var DateTabsView = TabsView.extend({
     className: 'date-tabs',
     render: function() {
         this.collection.forEach(function(e) {
-            if (!e.get('efimeries').every(function(e) { return e.get('hide')})) {
+            if (!e.get('efimeries').every(function(e) { return e.get('hide');})) {
                 var dTV = new DateTabView({model: e});
                 var dateTab = dTV.render().el;
                 $(this.el).append(dateTab);
@@ -261,6 +263,6 @@ $('body').html(tabsView.render().el);
 $(window).on('load', function() {
     $('.tab').each(function(i, e) {
         var el = $(e);
-        el.css('padding-top', (el.height() - el.children('span').height())/2)
+        el.css('padding-top', (el.height() - el.children('span').height())/2);
     });
 });
