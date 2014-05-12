@@ -39,8 +39,13 @@ var PharmacyView = Backbone.View.extend({
             });
             mV.render();
             this.mapLoaded = true;
+            setTimeout(_.bind(this.afterVisible, this, mV), 700);
         }
         return this;
+    },
+    afterVisible: function(mV) {
+        google.maps.event.trigger(mV.map, "resize");
+        mV.map.setCenter(mV.model.getLatLng());
     }
 });
 var Efimeria = Backbone.Model.extend({});
