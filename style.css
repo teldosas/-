@@ -40,6 +40,11 @@
 #efimeries-tables tr:not(.pharmacy){
     cursor: pointer;
 }
+.pharmacy {
+    background-color: white;
+    width: 850px;
+    height: 500px;
+}
 #district-tabs {
     height: 90px;
 }
@@ -83,7 +88,7 @@
     height: 293px;
 }
 .ph-map {
-    width: 414px;
-    height: 249px;
+    width: 850px;
+    height: 350px;
     float: right;
 }
