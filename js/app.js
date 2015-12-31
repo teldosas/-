@@ -129,7 +129,7 @@ var EfimeriesView = Backbone.View.extend({
 });
 var Tab = Backbone.Model.extend({});
 var TabView = Backbone.View.extend({
-    className: 'tab',
+    className: 'tab btn btn-default',
     initialize: function () {
         var myEfimeries = this.model.get('efimeries');
         this.efimeriesView = new EfimeriesView({collection: myEfimeries});
@@ -143,7 +143,7 @@ var TabView = Backbone.View.extend({
     },
     events: {
         'click': function() {
-            $('.'+this.className+'.selected').removeClass('selected');
+            $('.'+this.className.replace(/(\S+)\s.*$/, "$1")+'.selected').removeClass('selected');
             $(this.el).addClass('selected');
             $('#efimeries-tables').find('.selected').removeClass('selected');
             $(this.efimeriesView.el).addClass('selected').parent().scrollTop(0);
@@ -158,7 +158,7 @@ var TabView = Backbone.View.extend({
 });
 var DateTab = Backbone.Model.extend({});
 var DateTabView = TabView.extend({
-    className: 'date-tab',
+    className: 'date-tab btn btn-default btn-block',
     initialize: function() {
         var myEfimeries = this.model.get('efimeries');
         this.efimeriesView = new EfimeriesView({collection: myEfimeries});
