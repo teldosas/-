@@ -54,7 +54,9 @@ var EfimeriaView = Backbone.View.extend({
     events: {
         'click': function() {
             var phV = this.model.pharmacyView;
-            phV.render().$el.bPopup({
+            phV.render();
+            $('body').append(phV.$el);
+            phV.$el.bPopup({
                 speed: 450,
                 transition: 'slideDown',
                 onClose: function() {
@@ -62,7 +64,6 @@ var EfimeriaView = Backbone.View.extend({
                 },
                 position: ['auto', 'auto']
             });
-            $(this).data('iteration', iteration);
         }
     },
     template: _.template('<td><%= startTime %> - <%= endTime %></td>' +

@@ -78,17 +78,7 @@
 .hidden-pharmacy {
     display: none;
 }
-#map {
-    width: 787px;
-    height: 338px;
-    margin-left: 140px;
-}
-.map {
-    width: 350px;
-    height: 293px;
-}
 .ph-map {
     width: 850px;
     height: 350px;
-    float: right;
 }
