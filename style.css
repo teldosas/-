@@ -9,6 +9,9 @@
     cursor: pointer;
     text-align: center;
 }
+div div.tab:nth-child(6) {
+	background-color:#EB5252;
+}
 .date-tab {
     cursor: pointer;
     border: 1px solid black;
