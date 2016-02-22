@@ -64,6 +64,7 @@ var EfimeriaView = Backbone.View.extend({
                 },
                 position: ['auto', 'auto']
             });
+//            $(this).data('iteration', iteration);
         }
     },
     template: _.template('<td><%= startTime %> - <%= endTime %></td>' +
@@ -105,7 +106,7 @@ efimeries.forEach(function(e) {
     e.set('dateObject', dateObject);
     var formatedDate = dateObject.getDate() + '/' + (dateObject.getMonth()+1) + '/' + dateObject.getFullYear();
     e.set('date', formatedDate);
-    if(plusDays(dateObject, (e.get('nightWatch'))?1:0) < currentDate) {
+    if(plusDays(dateObject, (e.get('nightWatch'))?1:0) < currentDate || plusDays(dateObject, (e.get('nightWatch'))?1:0) > plusDays(currentDate, 42 )) {
         e.set('hide', true);
     }
 });
