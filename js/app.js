@@ -173,7 +173,7 @@ var Tabs = Backbone.Collection.extend({
     },
     efimeries: efimeries,
 	tabNames : ['ΧΕΡΣΟΝΗΣΟΣ', 'ΜΑΛΙΑ', 
-						'ΓΟΥΒΕΣ ΚΟΚΚΙΝΗ-ΧΑΝΙ ΒΑΘΕΙΑΝΟΣ-ΚΑΜΠΟΣ ΚΑΡΤΕΡΟΣ ΕΠΙΣΚΟΠΗ',
+						'ΓΟΥΒΕΣ-ΚΟΚΚΙΝΗ ΧΑΝΙ ΒΑΘΕΙΑΝΟΣ ΚΑΜΠΟΣ <br>ΚΑΡΤΕΡΟΣ-ΕΠΙΣΚΟΠΗ',
 					   'ΑΝΑΛΗΨΗ', 'ΣΤΑΛΙΔΑ-ΜΟΧΟΣ', 'ΔΙΑΝΥΚΤΕΡΕΥΟΝ'],
     createGroups: function() {
         var groups = this.efimeries.groupBy(this.groupByFunction, this);
