@@ -171,13 +171,16 @@ var Tabs = Backbone.Collection.extend({
         return e.get('district');
     },
     efimeries: efimeries,
+	tabNames : ['ΧΕΡΣΟΝΗΣΟΣ', 'ΜΑΛΙΑ', 
+						'ΓΟΥΒΕΣ ΚΟΚΚΙΝΗ-ΧΑΝΙ ΒΑΘΕΙΑΝΟΣ-ΚΑΜΠΟΣ ΚΑΡΤΕΡΟΣ ΕΠΙΣΚΟΠΗ',
+					   'ΑΝΑΛΗΨΗ', 'ΣΤΑΛΙΔΑ-ΜΟΧΟΣ', 'ΔΙΑΝΥΚΤΕΡΕΥΟΝ'],
     createGroups: function() {
         var groups = this.efimeries.groupBy(this.groupByFunction, this);
-        Object.keys(groups).forEach(function(k) {
+        Object.keys(groups).forEach(function(k, idx) {
             var e =  new Efimeries();
             e.reset(groups[k]);
             var t = new this.model({
-                tabName: k,
+                tabName: this.tabNames[idx] || k,
                 efimeries: e
             });
             this.add(t);
@@ -218,6 +221,7 @@ var TabsView = Backbone.View.extend({
 });
 var DateTabs = Tabs.extend({
     model: DateTab,
+	tabNames: [],
     groupByFunction: function(e, i) {
         var date = e.get('dateObject');
 
