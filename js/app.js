@@ -106,7 +106,7 @@ efimeries.forEach(function(e) {
     e.set('dateObject', dateObject);
     var formatedDate = dateObject.getUTCDate() + '/' + (dateObject.getUTCMonth()+1) + '/' + dateObject.getUTCFullYear();
     e.set('date', formatedDate);
-    if(plusDays(dateObject, (e.get('nightWatch'))?1:0) < currentDate || 
+    if(plusDays(dateObject, (e.get('nightWatch'))?1:0) < currentDate ||
 	   plusDays(dateObject, (e.get('nightWatch'))?1:0) > plusDays(currentDate, 41 )) {
         e.set('hide', true);
     }
@@ -172,7 +172,7 @@ var Tabs = Backbone.Collection.extend({
         return e.get('district');
     },
     efimeries: efimeries,
-	tabNames : ['ΧΕΡΣΟΝΗΣΟΣ', 'ΜΑΛΙΑ', 
+	tabNames : ['ΧΕΡΣΟΝΗΣΟΣ', 'ΜΑΛΙΑ',
 						'ΓΟΥΒΕΣ-ΚΟΚΚΙΝΗ ΧΑΝΙ ΒΑΘΕΙΑΝΟΣ ΚΑΜΠΟΣ <br>ΚΑΡΤΕΡΟΣ-ΕΠΙΣΚΟΠΗ',
 					   'ΑΝΑΛΗΨΗ', 'ΣΤΑΛΙΔΑ-ΜΟΧΟΣ', 'ΔΙΑΝΥΚΤΕΡΕΥΟΝ'],
     createGroups: function() {
