@@ -104,7 +104,7 @@ var plusDays = function(date, days) {
 efimeries.forEach(function(e) {
     var dateObject = new Date(e.get('date'));
     e.set('dateObject', dateObject);
-    var formatedDate = dateObject.getDate() + '/' + (dateObject.getMonth()+1) + '/' + dateObject.getFullYear();
+    var formatedDate = dateObject.getUTCDate() + '/' + (dateObject.getUTCMonth()+1) + '/' + dateObject.getUTCFullYear();
     e.set('date', formatedDate);
     if(plusDays(dateObject, (e.get('nightWatch'))?1:0) < currentDate || 
 	   plusDays(dateObject, (e.get('nightWatch'))?1:0) > plusDays(currentDate, 41 )) {
